@@ -1,0 +1,136 @@
+TOK64 converts ascii text file representations of Commodore basic
+program listings into program images suitable to run on a C64.  It
+also converts basic programs back into ascii text listings.  TOK64
+does NOT perform syntax checking.
+
+*** Use the "/list" command line argument for a list of valid commands.
+
+You may specify multiple commands and/or file names on the command
+line in the order you want the commands to occur.
+
+Default extensions are ".txt" for ascii text files and ".prg" for
+Commodore Basic program files.  That means you may specify extensions
+but if you don't TOK64 will look for files with the defaults.
+An input text file may contain multiple program listings.  Use the
+"/mult" command to enable this function.  Mark the start of each
+listing with "start tok64 {file name}" and the end with "stop tok64".
+This feature is only available with the "/toprg" command.
+
+Keywords, variables, and quoted named identifiers are NOT case-
+sensitive but quoted strings and comments ARE. So, if you issue a
+"POKE 53272,21" command on your C64 the quoted strings will appear as
+upper case and graphics.  But if you do a "POKE 53272,23" the strings
+will be lower case and upper case.  In other words, ASCII to PETASCII
+conversion is performed automatically.  To represent special characters
+in quoted strings use named identifiers, like "{clear}", or curly-
+bracketed ascii values, between "{001}" and "{255}".  You may also
+specify quantities like "{down*10}" or "{001*5}".
+
+You may break up the ascii text lines by appending a "\" continuation
+character to the end of a line.  The next line of text will be combined
+with the current line to create one numbered Basic command line.  So,
+the next line of text should NOT have a line number, and any leading
+whitespace characters will be ignored.  Do NOT break up a keyword in
+continuing a line -- TOK64 will not parse it correctly.  BTW, the
+maximum line length is 400 characters.
+
+If you find that much of a listing will require many continuation chars
+and each logical (basic) line is hanging-indented, use the /col command.
+TOK64 will start a new basic line when a line number starts in column
+one and will continue the line, ignoring the physical end of line (cr/lf),
+until another number appears in column one or the end of the file is
+reached. All but one leading spaces are ignored when continuing a line.
+Any non-numeric chars in the first column are not allowed.
+
+Use TRANS64, Bernhard Schwall <schwall@athene.informatik.uni-bonn.de>,
+or some other utility program to transfer your basic programs between
+your PC and C64 or emulator disk images.
+
+I would like to give special thanks to the following people. Peter
+Karlsson (Fidonet 2:204/145.42) <Peter.T.Karlsson@abc.se> for
+assisting with the keyword/token list and with testing. Also to Phil
+Hoff <phoff@ecst.csuchico.edu> for heavy-duty testing and pushing
+for more features. Ville Muikkula <vmuikku@yrttis.ratol.fi> for testing
+and suggestions for special char replacement.
+
+OK, now for the scary part.  This software is provided to you "AS-IS".
+No other warranties of any kind, express or implied, are made to you
+as to the software or any medium it may be on, including but not
+limited to warranties of merchantability or fitness for a particular
+purpose.  So use at your own risk.  Whew!  Are you still there?
+
+If you like TOK64 and/or find it useful please consider sending me
+an email or a couple bucks to encourage me to continue improving
+it or write other useful software.  Thanks -- Cris Berneburg.
+
+
+These are the valid command line arguments for TOK64:
+
+/toprg          Tokenize *.TXT text file to Commodore Basic program (*)
+/totxt          Detokenize *.PRG basic file to ascii text
+/mult           Process multiple listings within a single text file
+/nomult         Process text file as a single listing (*)
+/lower          Render keywords as lower case when de-tokenizing (*)
+/upper          Render keywords as upper case when de-tokenizing
+/lowcase        Lower case quoted strings & comments when tokenizing
+/case           Quoted string & comment tokenizing is case-sensitive (*)
+/col            Column sensitivity enabled while tokenizing
+/nocol          Column sensitivity disabled (*)
+/stomp          Overwrite existing files without confirmation
+/nostomp        Ask before overwriting existing files (*)
+/fincart3       The Final Cartridge 3 Basic Extension
+/graph52        Graphics52 Basic Extension
+/64             C64 Basic V2 (*)
+/list           Display a list of command arguments
+/help           The help screen
+/keywords       Display a list of Commodore Basic keywords
+/special        Display a list of special substitutions
+/ext            Display a list of Basic extension keywords
+{file name}     Name of file to process
+
+
+These are the valid Commodore Basic keywords for TOK64:
+
+*              +              -              /
+<              =              >              ^
+abs            and            asc            atn
+chr$           close          clr            cmd
+cont           cos            data           def
+dim            end            exp            fn
+for            fre            get            gosub
+goto           go             if             input#
+input          int            left$          len
+let            list           load           log
+mid$           new            next           not
+on             open           or             peek
+{pi}           poke           pos            print#
+print          read           rem            restore
+return         right$         rnd            run
+save           sgn            sin            spc(
+sqr            step           stop           str$
+sys            tab(           tan            then
+to             usr            val            verify
+wait
+
+
+These are the valid special substitions for TOK64:
+
+{clear}             {home}              {right}
+{left}              {up}                {down}
+{reverse on}        {reverse off}       {black}
+{white}             {red}               {cyan}
+{purple}            {green}             {blue}
+{yellow}            {orange}            {brown}
+{pink}              {dark gray}         {gray}
+{light green}       {light blue}        {light gray}
+{f1}                {f2}                {f3}
+{f4}                {f5}                {f6}
+{f7}                {f8}                {space}
+
+
+Some things that I'd like to include in future versions:
+
+(done 6/15/96) The Final Cartridge 3 Basic Extension (C64)
+(done 6/15/96) Graphics52 Basic Extension (C64)
+C128 Basic V7 (Extensions to Basic V2) (big maybe)
+Syntax checking

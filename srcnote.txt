@@ -1,0 +1,15 @@
+Well, after years of hanging onto it, here's the
+source code for TOK64. You may use it in your own
+coding efforts but you must give me credit. You may
+not charge money for the code which I allow you to
+use.
+
+While packing up TOK64 source code for publishing
+on my web page I noticed that the include file
+directories may be different, so make adjustments
+accordingly.
+
+Happy coding!
+Cris Berneburg <stegos@bigfoot.com>
+old email <74171.2136@compuserve.com>
+7/8/00
